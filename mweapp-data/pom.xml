@@ -13,10 +13,15 @@
 
   <dependencies>
 
-<!--    <dependency>-->
-<!--      <groupId>org.liquibase</groupId>-->
-<!--      <artifactId>liquibase-core</artifactId>-->
-<!--    </dependency>-->
+    <dependency>
+      <groupId>org.liquibase</groupId>
+      <artifactId>liquibase-core</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-security</artifactId>
+    </dependency>
 
     <dependency>
       <groupId>org.springframework.boot</groupId>
@@ -47,7 +52,43 @@
       <scope>test</scope>
     </dependency>
 
+    <dependency>
+      <groupId>org.liquibase</groupId>
+      <artifactId>liquibase-maven-plugin</artifactId>
+      <version>3.4.1</version>
+    </dependency>
+
   </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.liquibase</groupId>
+        <artifactId>liquibase-maven-plugin</artifactId>
+        <version>4.4.3</version>
+        <configuration>
+          <propertyFile>src/main/resources/liquibase.properties</propertyFile>
+        </configuration>
+        <dependencies>
+          <dependency>
+            <groupId>org.liquibase.ext</groupId>
+            <artifactId>liquibase-hibernate5</artifactId>
+            <version>4.4.3</version>
+          </dependency>
+          <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-beans</artifactId>
+            <version>5.3.9</version>
+          </dependency>
+          <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-jpa</artifactId>
+            <version>2.5.4</version>
+          </dependency>
+        </dependencies>
+      </plugin>
+    </plugins>
+  </build>
 
 
 </project>

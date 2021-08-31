@@ -1,0 +1,23 @@
+databaseChangeLog:
+  - changeSet:
+      id: cdb-mweuser-tbl
+      author: admin
+      changes:
+        - createTable:
+            tableName: mweuser
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: username
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: password
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
