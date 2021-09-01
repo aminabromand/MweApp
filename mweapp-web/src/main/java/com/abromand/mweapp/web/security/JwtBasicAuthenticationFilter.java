@@ -16,14 +16,14 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
+public class JwtBasicAuthenticationFilter extends BasicAuthenticationFilter {
 
     static final String JWT_AUTH_HEADER_PREFIX = "Bearer ";
     static final String JWT_SIGNATURE_KEY = "SecretKeyForJWTs";
 
     private final MweUserRepository userRepository;
 
-    public JwtAuthenticationFilter(AuthenticationManager authenticationManager, MweUserRepository userRepository) {
+    public JwtBasicAuthenticationFilter(AuthenticationManager authenticationManager, MweUserRepository userRepository) {
         super(authenticationManager);
         this.userRepository = userRepository;
     }

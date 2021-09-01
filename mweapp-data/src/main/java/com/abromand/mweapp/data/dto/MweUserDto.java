@@ -1,38 +1,27 @@
-package com.abromand.mweapp.data.model;
+package com.abromand.mweapp.data.dto;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+public class MweUserDto {
 
-@Entity
-public class MweUser {
-
-  @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
   private Long id;
 
-  @Column(nullable = false, unique = true)
   private String username;
 
-  @Column
   private String password;
 
-  @Column
   private boolean cto;
 
-  @Column
   private boolean csb;
 
-  public MweUser() {}
+  public MweUserDto() {
 
-  public MweUser(Long id, String username, String password, boolean cto, boolean csb) {
+  }
+
+  public MweUserDto(Long id, String username, String password, boolean cto, boolean csb) {
     this.id = id;
     this.username = username;
     this.password = password;
-    this.csb = csb;
     this.cto = cto;
+    this.csb = csb;
   }
 
   public Long getId() {

@@ -1,5 +1,6 @@
 package com.abromand.mweapp.web.security;
 
+import com.abromand.mweapp.web.dto.LoginRequest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -37,15 +38,15 @@ public class JwtUsernamePasswordAuthenticationFilter extends UsernamePasswordAut
         }
 
 
-        LoginRequest creds;
+        LoginRequest loginRequest;
         try {
-            creds = new ObjectMapper().readValue(request.getInputStream(), LoginRequest.class);
+            loginRequest = new ObjectMapper().readValue(request.getInputStream(), LoginRequest.class);
         } catch (IOException e) {
             throw new AuthenticationServiceException(e.getMessage());
         }
 
         return getAuthenticationManager().authenticate(
-            getToken(creds.getUsername(), creds.getPassword())
+            getToken(loginRequest.getUsername(), loginRequest.getPassword())
         );
     }
 
@@ -62,9 +63,9 @@ public class JwtUsernamePasswordAuthenticationFilter extends UsernamePasswordAut
         String token = Jwts.builder()
             .setSubject(((UserDetails) auth.getPrincipal()).getUsername())
             .setExpiration(new Date(System.currentTimeMillis() + 6000000))
-            .signWith(SignatureAlgorithm.HS512, JwtAuthenticationFilter.JWT_SIGNATURE_KEY)
+            .signWith(SignatureAlgorithm.HS512, JwtBasicAuthenticationFilter.JWT_SIGNATURE_KEY)
             .compact();
-        response.addHeader(HttpHeaders.AUTHORIZATION, JwtAuthenticationFilter.JWT_AUTH_HEADER_PREFIX + token);
+        response.addHeader(HttpHeaders.AUTHORIZATION, JwtBasicAuthenticationFilter.JWT_AUTH_HEADER_PREFIX + token);
     }
 
     @Override
@@ -84,41 +85,4 @@ public class JwtUsernamePasswordAuthenticationFilter extends UsernamePasswordAut
         return authenticationManager;
     }
 
-    public static class LoginRequest {
-        private String username;
-        private String password;
-        private boolean returnSecureToken;
-
-        public LoginRequest() {
-        }
-
-        public LoginRequest(String username, String password) {
-            this.username = username;
-            this.password = password;
-        }
-
-        public String getUsername() {
-            return username;
-        }
-
-        public void setUsername(String username) {
-            this.username = username;
-        }
-
-        public String getPassword() {
-            return password;
-        }
-
-        public void setPassword(String password) {
-            this.password = password;
-        }
-
-        public boolean isReturnSecureToken() {
-            return returnSecureToken;
-        }
-
-        public void setReturnSecureToken(boolean returnSecureToken) {
-            this.returnSecureToken = returnSecureToken;
-        }
-    }
 }

@@ -1,2 +1,48 @@
-- includeAll:
+databaseChangeLog:
+  - changeSet:
+      id: 1630485736197-1
+      author: metaproc (generated)
+      changes:
+        - createSequence:
+            incrementBy: 1
+            sequenceName: hibernate_sequence
+            startValue: 1
+  - changeSet:
+      id: 1630485736197-2
+      author: metaproc (generated)
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: MweUserPK
+                  name: id
+                  type: BIGINT
+              - column:
+                  name: csb
+                  type: BOOLEAN
+              - column:
+                  name: cto
+                  type: BOOLEAN
+              - column:
+                  name: password
+                  type: VARCHAR(255)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: username
+                  type: VARCHAR(255)
+            tableName: MweUser
+  - changeSet:
+      id: 1630485736197-3
+      author: metaproc (generated)
+      changes:
+        - addUniqueConstraint:
+            columnNames: username
+            constraintName: UC_MWEUSERUSERNAME_COL
+            tableName: MweUser
+  - includeAll:
     path: liquibase
