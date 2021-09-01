@@ -44,5 +44,3 @@ databaseChangeLog:
             columnNames: username
             constraintName: UC_MWEUSERUSERNAME_COL
             tableName: MweUser
-  - includeAll:
-    path: liquibase
