@@ -1,6 +1,6 @@
 databaseChangeLog:
   - changeSet:
-      id: 1630485736197-1
+      id: 1630532898771-1
       author: metaproc (generated)
       changes:
         - createSequence:
@@ -8,7 +8,7 @@ databaseChangeLog:
             sequenceName: hibernate_sequence
             startValue: 1
   - changeSet:
-      id: 1630485736197-2
+      id: 1630532898771-2
       author: metaproc (generated)
       changes:
         - createTable:
@@ -18,7 +18,7 @@ databaseChangeLog:
                   constraints:
                     nullable: false
                     primaryKey: true
-                    primaryKeyName: MweUserPK
+                    primaryKeyName: mwe_userPK
                   name: id
                   type: BIGINT
               - column:
@@ -35,12 +35,13 @@ databaseChangeLog:
                     nullable: false
                   name: username
                   type: VARCHAR(255)
-            tableName: MweUser
+            tableName: mwe_user
   - changeSet:
-      id: 1630485736197-3
+      id: 1630532898771-3
       author: metaproc (generated)
       changes:
         - addUniqueConstraint:
             columnNames: username
-            constraintName: UC_MWEUSERUSERNAME_COL
-            tableName: MweUser
+            constraintName: UC_MWE_USERUSERNAME_COL
+            tableName: mwe_user
+

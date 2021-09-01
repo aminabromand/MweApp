@@ -3,6 +3,7 @@ package com.abromand.mweapp.web.security;
 import com.abromand.mweapp.data.model.MweUser;
 import com.abromand.mweapp.data.repository.MweUserRepository;
 import io.jsonwebtoken.Jwts;
+import java.util.Optional;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -62,10 +63,10 @@ public class JwtBasicAuthenticationFilter extends BasicAuthenticationFilter {
     }
 
     MweUser getOrCreateMweUser(String username) {
-        MweUser caminoUser = userRepository.findByUsername(username);
-        if (caminoUser != null) return caminoUser;
-        caminoUser = new MweUser();
-        caminoUser.setUsername(username);
-        return userRepository.save(caminoUser);
+        Optional<MweUser> mweUserOptional = userRepository.findByUsername(username);
+        if (mweUserOptional.isPresent()) return mweUserOptional.get();
+        MweUser mweUser = new MweUser();
+        mweUser.setUsername(username);
+        return userRepository.save(mweUser);
     }
 }

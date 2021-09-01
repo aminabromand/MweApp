@@ -2,6 +2,7 @@ package com.abromand.mweapp.web.security;
 
 import com.abromand.mweapp.data.model.MweUser;
 import com.abromand.mweapp.data.repository.MweUserRepository;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -17,10 +18,10 @@ public class MweUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) {
 
-        MweUser user = userRepository.findByUsername(username);
-        if (user == null) {
+        Optional<MweUser> user = userRepository.findByUsername(username);
+        if (user.isEmpty()) {
             throw new UsernameNotFoundException(username);
         }
-        return new MweUserPrincipal(user);
+        return new MweUserPrincipal(user.get());
     }
 }

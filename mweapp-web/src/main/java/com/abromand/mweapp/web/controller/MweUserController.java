@@ -18,7 +18,6 @@ public class MweUserController {
   @GetMapping
   public List<MweUserDto> findAll() {
     return userService.findAll();
-
   }
 
 }
