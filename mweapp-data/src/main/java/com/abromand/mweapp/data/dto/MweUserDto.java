@@ -8,6 +8,8 @@ public class MweUserDto {
 
   private String password;
 
+  private String email;
+
   private boolean cto;
 
   private boolean csb;
@@ -16,10 +18,11 @@ public class MweUserDto {
 
   }
 
-  public MweUserDto(Long id, String username, String password, boolean cto, boolean csb) {
+  public MweUserDto(Long id, String username, String password, String email, boolean cto, boolean csb) {
     this.id = id;
     this.username = username;
     this.password = password;
+    this.email = email;
     this.cto = cto;
     this.csb = csb;
   }
@@ -62,5 +65,13 @@ public class MweUserDto {
 
   public void setCsb(boolean csb) {
     this.csb = csb;
+  }
+
+  public String getEmail() {
+    return email;
+  }
+
+  public void setEmail(String email) {
+    this.email = email;
   }
 }

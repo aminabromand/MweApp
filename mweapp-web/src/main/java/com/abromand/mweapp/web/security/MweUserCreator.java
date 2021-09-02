@@ -26,19 +26,19 @@ public class MweUserCreator implements ApplicationListener<ApplicationReadyEvent
 
     logger.info("running creator MweUserCreator");
 
-    MweUser amin = new MweUser(1L, "aminator", "amin@abromand.com", passwordEncoder.encode("abcdef9h"), true, false);
-    MweUser kappe = new MweUser(2L, "kappe", "kappert.d@web.de", passwordEncoder.encode("init101"), false, true);
-    MweUser fame = new MweUser(3L, "fame", "felixblanke@gmail.com", passwordEncoder.encode("init101"), false, false);
-    MweUser poisch = new MweUser(4L, "poisch", "jenspoischbeg@gmail.com", passwordEncoder.encode("init101"), false, false);
-    MweUser jay = new MweUser(5L, "jay", "jensvictor@gmx.de", passwordEncoder.encode("init101"), false, false);
-    MweUser mo = new MweUser(6L, "mo", "moritz@reisers.net", passwordEncoder.encode("init101"), false, false);
-    MweUser porro = new MweUser(7L, "porro", "nicogoldmann@gmail.com", passwordEncoder.encode("init101"), false, false);
-    MweUser reen = new MweUser(8L, "reen", "ren.voss@gmail.com", passwordEncoder.encode("init101"), false, false);
-    MweUser bart = new MweUser(9L, "bart", "arnesalehian@gmailc.om", passwordEncoder.encode("init101"), false, false);
-    MweUser tobi = new MweUser(10L, "tobi", "tobiasschmitz@gmail.com", passwordEncoder.encode("init101"), false, false);
-    MweUser firstclaas = new MweUser(11L, "firstclaas", "claas.windheuser@gmail.com", passwordEncoder.encode("init101"), false, false);
-    MweUser pasen = new MweUser(12L, "paisen", "pascal.maas@gmx.de", passwordEncoder.encode("init101"), false, false);
-    MweUser freez = new MweUser(13L, "freez", "chr.freise@googlemail.com", passwordEncoder.encode("init101"), false, false);
+    MweUser amin = new MweUser(1L, "aminator", passwordEncoder.encode("abcdef9h"), "amin@abromand.com", true, false);
+    MweUser kappe = new MweUser(2L, "kappe", passwordEncoder.encode("init101"), "kappert.d@web.de",  false, true);
+    MweUser fame = new MweUser(3L, "fame", passwordEncoder.encode("init101"), "felixblanke@gmail.com", false, false);
+    MweUser poisch = new MweUser(4L, "poisch", passwordEncoder.encode("init101"), "jenspoischbeg@gmail.com", false, false);
+    MweUser jay = new MweUser(5L, "jay", passwordEncoder.encode("init101"), "jensvictor@gmx.de", false, false);
+    MweUser mo = new MweUser(6L, "mo", passwordEncoder.encode("init101"), "moritz@reisers.net", false, false);
+    MweUser porro = new MweUser(7L, "porro", passwordEncoder.encode("init101"), "nicogoldmann@gmail.com", false, false);
+    MweUser reen = new MweUser(8L, "reen", passwordEncoder.encode("init101"), "ren.voss@gmail.com", false, false);
+    MweUser bart = new MweUser(9L, "bart", passwordEncoder.encode("init101"), "arnesalehian@gmailc.om", false, false);
+    MweUser tobi = new MweUser(10L, "tobi", passwordEncoder.encode("init101"), "tobiasschmitz@gmail.com", false, false);
+    MweUser firstclaas = new MweUser(11L, "firstclaas", passwordEncoder.encode("init101"), "claas.windheuser@gmail.com", false, false);
+    MweUser pasen = new MweUser(12L, "paisen", passwordEncoder.encode("init101"), "pascal.maas@gmx.de", false, false);
+    MweUser freez = new MweUser(13L, "freez", passwordEncoder.encode("init101"), "chr.freise@googlemail.com", false, false);
 
     userRepository.save(amin);
     userRepository.save(kappe);
