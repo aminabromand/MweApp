@@ -20,6 +20,12 @@
     </dependency>
 
     <dependency>
+      <groupId>com.abromand</groupId>
+      <artifactId>mweapp-gui</artifactId>
+      <version>0.0.1-SNAPSHOT</version>
+    </dependency>
+
+    <dependency>
       <groupId>io.jsonwebtoken</groupId>
       <artifactId>jjwt</artifactId>
       <version>0.9.1</version>

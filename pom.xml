@@ -9,6 +9,7 @@
   <modules>
     <module>mweapp-data</module>
     <module>mweapp-web</module>
+    <module>mweapp-gui</module>
   </modules>
 
   <parent>

@@ -21,6 +21,9 @@ public class MweUser {
   @Column
   private String password;
 
+  @Column(nullable = false, unique = true)
+  private String email;
+
   @Column
   private boolean cto;
 
@@ -29,12 +32,13 @@ public class MweUser {
 
   public MweUser() {}
 
-  public MweUser(Long id, String username, String password, boolean cto, boolean csb) {
+  public MweUser(Long id, String username, String password, String email, boolean cto, boolean csb) {
     this.id = id;
     this.username = username;
     this.password = password;
     this.csb = csb;
     this.cto = cto;
+    this.email = email;
   }
 
   public Long getId() {
@@ -75,5 +79,13 @@ public class MweUser {
 
   public void setCsb(boolean csb) {
     this.csb = csb;
+  }
+
+  public String getEmail() {
+    return email;
+  }
+
+  public void setEmail(String email) {
+    this.email = email;
   }
 }

@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <parent>
+    <artifactId>mweapp</artifactId>
+    <groupId>com.abromand</groupId>
+    <version>0.0.1-SNAPSHOT</version>
+  </parent>
+  <modelVersion>4.0.0</modelVersion>
+
+  <artifactId>mweapp-gui</artifactId>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+    <node.version>v14.16.1</node.version>
+    <npm.version>7.11.2</npm.version>
+    <frontend-maven-plugin.version>1.11.3</frontend-maven-plugin.version>
+    <maven-idea-plugin.version>2.2.1</maven-idea-plugin.version>
+  </properties>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>com.github.eirslett</groupId>
+        <artifactId>frontend-maven-plugin</artifactId>
+        <version>${frontend-maven-plugin.version}</version>
+        <configuration>
+          <installDirectory>.</installDirectory>
+        </configuration>
+
+        <executions>
+<!--          <execution>-->
+<!--            <id>install node and npm</id>-->
+<!--            <goals>-->
+<!--              <goal>install-node-and-npm</goal>-->
+<!--            </goals>-->
+<!--            <configuration>-->
+<!--              <nodeVersion>${node.version}</nodeVersion>-->
+<!--              <npmVersion>${npm.version}</npmVersion>-->
+<!--            </configuration>-->
+<!--          </execution>-->
+
+<!--          <execution>-->
+<!--            <id>npm install</id>-->
+<!--            <goals>-->
+<!--              <goal>npm</goal>-->
+<!--            </goals>-->
+<!--          </execution>-->
+
+<!--          <execution>-->
+<!--            <id>webapp build dev</id>-->
+<!--            <goals>-->
+<!--              <goal>npm</goal>-->
+<!--            </goals>-->
+<!--            <phase>generate-resources</phase>-->
+<!--            <configuration>-->
+<!--              <arguments>run build</arguments>-->
+<!--              <environmentVariables>-->
+<!--                <APP_VERSION>${project.version}</APP_VERSION>-->
+<!--              </environmentVariables>-->
+<!--              <npmInheritsProxyConfigFromMaven>false</npmInheritsProxyConfigFromMaven>-->
+<!--            </configuration>-->
+<!--          </execution>-->
+
+        </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-idea-plugin</artifactId>
+        <version>${maven-idea-plugin.version}</version>
+        <configuration>
+          <exclude>node_modules</exclude>
+        </configuration>
+      </plugin>
+    </plugins>
+
+    <resources>
+      <resource>
+        <directory>dist</directory>
+        <targetPath>static</targetPath>
+      </resource>
+    </resources>
+
+  </build>
+
+  <profiles>
+
+    <profile>
+      <id>installnode</id>
+
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>com.github.eirslett</groupId>
+            <artifactId>frontend-maven-plugin</artifactId>
+            <version>${frontend-maven-plugin.version}</version>
+            <executions>
+              <execution>
+                <id>install node and npm</id>
+                <goals>
+                  <goal>install-node-and-npm</goal>
+                </goals>
+                <configuration>
+                  <nodeVersion>${node.version}</nodeVersion>
+                  <npmVersion>${npm.version}</npmVersion>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+
+    <profile>
+      <id>npminstall</id>
+
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>com.github.eirslett</groupId>
+            <artifactId>frontend-maven-plugin</artifactId>
+            <version>${frontend-maven-plugin.version}</version>
+            <executions>
+
+              <execution>
+                <id>npm install</id>
+                <goals>
+                  <goal>npm</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+
+    <profile>
+      <id>buildgui</id>
+
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>com.github.eirslett</groupId>
+            <artifactId>frontend-maven-plugin</artifactId>
+            <version>${frontend-maven-plugin.version}</version>
+            <executions>
+
+              <execution>
+                <id>webapp build dev</id>
+                <goals>
+                  <goal>npm</goal>
+                </goals>
+                <phase>generate-resources</phase>
+                <configuration>
+                  <arguments>run build</arguments>
+                  <environmentVariables>
+                    <APP_VERSION>${project.version}</APP_VERSION>
+                  </environmentVariables>
+                  <npmInheritsProxyConfigFromMaven>false</npmInheritsProxyConfigFromMaven>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+
+  </profiles>
+
+</project>
