@@ -4,8 +4,6 @@
 
       <app-header></app-header>
 
-      <img alt="Vue logo" src="./assets/mwe.png">
-
       <transition name="slide" mode="out-in">
         <router-view></router-view>
       </transition>
@@ -15,12 +13,12 @@
 </template>
 
 <script>
-import Header from '@/components/Header'
+import Login from '@/components/Login'
 
 export default {
   name: 'App',
   components: {
-    appHeader: Header
+    appHeader: Login
   }
 }
 </script>

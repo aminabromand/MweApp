@@ -1,5 +1,5 @@
-import HelloWorld from '@/components/HelloWorld'
+import BlankPage from '@/components/BlankPage'
 
 export const routes = [
-  { path: '/', component: HelloWorld }
+  { path: '/', component: BlankPage }
 ]
