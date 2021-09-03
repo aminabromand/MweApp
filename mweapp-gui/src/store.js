@@ -7,6 +7,11 @@ export const store = createStore({
     loggedIn: false,
     count: 0
   },
+  getters: {
+    isLoggedIn (state) {
+      return state.loggedIn
+    }
+  },
   mutations: {
     increment (state) {
       state.count++
@@ -14,11 +19,23 @@ export const store = createStore({
   },
   actions: {
     increment (context) {
-      $axios.post('/login', { username: 'aminator', password: 'abcdef9h' })
+      $axios.post('/api/login', { username: 'aminator', password: 'abcdef9h' })
         .then(res => console.log(res))
         .catch(error => console.log(error))
 
       context.commit('increment')
+    },
+    login ({ commit, dispatch }, authData) {
+      return $axios.post(
+        '/api/login',
+        { username: authData.username, password: authData.password })
+        .then(
+          res => {
+            console.log(res.headers.authorization)
+            this.state.loggedIn = true
+          }
+        )
+        .catch(error => console.log(error))
     }
   }
 })

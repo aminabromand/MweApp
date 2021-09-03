@@ -13,7 +13,6 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.cors.CorsConfiguration;
@@ -23,6 +22,8 @@ import org.springframework.web.filter.CorsFilter;
 @EnableWebSecurity
 @Configuration
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
+
+    public static final String API_BASE_MAPPING = "/api";
 
     private static final Logger LOG = LoggerFactory.getLogger(WebSecurityConfiguration.class);
 
@@ -66,7 +67,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
         JwtUsernamePasswordAuthenticationFilter jwtUsernamePasswordAuthenticationFilter =
             new JwtUsernamePasswordAuthenticationFilter(authenticationManager());
-        jwtUsernamePasswordAuthenticationFilter.setFilterProcessesUrl("/login"); // this endpoint will receive JWT sign-in requests (should be POST only)
+        jwtUsernamePasswordAuthenticationFilter.setFilterProcessesUrl(API_BASE_MAPPING + "/login"); // this endpoint will receive JWT sign-in requests (should be POST only)
 
         // @formatter:off
         http
@@ -76,8 +77,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                     .sessionCreationPolicy(SessionCreationPolicy.STATELESS) // no session cookie for API endpoints
             .and()
                 .authorizeRequests()
-//                    .anyRequest().authenticated() // all endpoints require JWT token (except /api/login defined above)
-            .anyRequest().permitAll() // all endpoints require JWT token (except /api/login defined above)
+                    .anyRequest().authenticated() // all endpoints require JWT token (except /api/login defined above)
+//            .anyRequest().permitAll() // all endpoints require JWT token (except /api/login defined above)
             .and()
                 .exceptionHandling()
                     .authenticationEntryPoint(restAuthenticationEntryPoint) // handles unauthorized attempts to access protected URLS (except /api/login)
@@ -114,14 +115,14 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         loginConfig.addAllowedHeader("*");
         loginConfig.addAllowedMethod("POST");
         loginConfig.addExposedHeader("Authorization");
-        source.registerCorsConfiguration("/login", loginConfig);
+        source.registerCorsConfiguration(API_BASE_MAPPING + "/login", loginConfig);
 
         var apiConfig = new CorsConfiguration();
         apiConfig.setAllowCredentials(true);
         apiConfig.addAllowedOrigin(allowedOrigin);
         apiConfig.addAllowedHeader("*");
         apiConfig.addAllowedMethod("*");
-        source.registerCorsConfiguration("/**", apiConfig);
+        source.registerCorsConfiguration(API_BASE_MAPPING + "/**", apiConfig);
 
         return new CorsFilter(source);
     }

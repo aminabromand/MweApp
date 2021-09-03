@@ -2,7 +2,7 @@
   <div>
     <div class="container">
 
-      <app-header></app-header>
+      <app-body></app-body>
 
       <transition name="slide" mode="out-in">
         <router-view></router-view>
@@ -13,12 +13,22 @@
 </template>
 
 <script>
-import Login from '@/components/Login'
+import BlankPage from '@/components/BlankPage'
+import { useRouter } from 'vue-router'
 
 export default {
   name: 'App',
+  setup () {
+    const router = useRouter()
+    return {
+      router: router
+    }
+  },
   components: {
-    appHeader: Login
+    appBody: BlankPage
+  },
+  created () {
+    this.router.replace('/login')
   }
 }
 </script>

@@ -13,8 +13,8 @@
 
       <!-- Login Form -->
       <form @submit.prevent="onSubmit">
-        <input type="text" id="login" class="fadeIn second" name="login" placeholder="login">
-        <input type="text" id="password" class="fadeIn third" name="login" placeholder="password">
+        <input type="text" id="username" class="fadeIn second" name="login" placeholder="username" v-model="username">
+        <input type="password" id="password" class="fadeIn third" name="login" placeholder="password" v-model="password">
         <input type="submit" class="fadeIn fourth" value="Log In">
       </form>
 
@@ -31,21 +31,35 @@
 <script>
 import { computed } from 'vue'
 import { useStore } from 'vuex'
+import { useRouter } from 'vue-router'
 
 export default {
   setup () {
     const store = useStore()
+    const router = useRouter()
 
     return {
       // access a state in computed function
       count: computed(() => store.state.count),
-      store: store
+      store: store,
+      router: router
+    }
+  },
+  data () {
+    return {
+      username: '',
+      password: ''
     }
   },
   methods: {
     onSubmit () {
-      this.store.dispatch('increment')
-      console.log(this.count)
+      console.log({ username: this.username, password: this.password })
+      this.store.dispatch('login', { username: this.username, password: this.password })
+        .then(() => {
+          if (this.store.getters.isLoggedIn) {
+            this.router.replace('/')
+          }
+        })
     }
   }
 }
@@ -191,7 +205,37 @@ input[type=text]:focus {
   border-bottom: 2px solid #5fbae9;
 }
 
-input[type=text]:placeholder {
+input[type=text]::placeholder {
+  color: #cccccc;
+}
+
+input[type=password] {
+  background-color: #f6f6f6;
+  border: none;
+  color: #0d0d0d;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 5px;
+  width: 85%;
+  border: 2px solid #f6f6f6;
+  -webkit-transition: all 0.5s ease-in-out;
+  -moz-transition: all 0.5s ease-in-out;
+  -ms-transition: all 0.5s ease-in-out;
+  -o-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
+  -webkit-border-radius: 5px 5px 5px 5px;
+  border-radius: 5px 5px 5px 5px;
+}
+
+input[type=password]:focus {
+  background-color: #fff;
+  border-bottom: 2px solid #5fbae9;
+}
+
+input[type=password]::placeholder {
   color: #cccccc;
 }
 

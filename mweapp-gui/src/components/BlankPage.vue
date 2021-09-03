@@ -1,6 +1,6 @@
 
 <template>
   <div>
-    <p>blank page</p>
+    <p></p>
   </div>
 </template>

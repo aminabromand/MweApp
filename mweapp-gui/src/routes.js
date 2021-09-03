@@ -1,5 +1,7 @@
-import BlankPage from '@/components/BlankPage'
+import UserList from '@/components/UserList'
+import Login from '@/components/Login'
 
 export const routes = [
-  { path: '/', component: BlankPage }
+  { path: '/', component: UserList },
+  { path: '/login', component: Login }
 ]
