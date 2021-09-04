@@ -5,16 +5,23 @@ import { $axios } from './axios'
 export const store = createStore({
   state: {
     loggedIn: false,
-    count: 0
+    count: 0,
+    users: []
   },
   getters: {
     isLoggedIn (state) {
       return state.loggedIn
+    },
+    users (state) {
+      return state.users
     }
   },
   mutations: {
     increment (state) {
       state.count++
+    },
+    'SET_USERS' (state, users) {
+      state.users = users
     }
   },
   actions: {
@@ -33,9 +40,22 @@ export const store = createStore({
           res => {
             console.log(res.headers.authorization)
             this.state.loggedIn = true
+            $axios.defaults.headers.common.authorization = res.headers.authorization
           }
         )
         .catch(error => console.log(error))
+    },
+    logout () {
+      delete $axios.defaults.headers.common.authorization
+      this.state.loggedIn = false
+    },
+    loadUsers ({ commit }) {
+      $axios.get('/api/user')
+        .then(
+          res => {
+            commit('SET_USERS', res.data)
+          }
+        )
     }
   }
 })

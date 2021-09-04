@@ -18,6 +18,7 @@
 <script>
 import Header from '@/components/Header'
 import User from '@/components/User'
+import { useStore } from 'vuex'
 
 export default {
   name: 'UserList',
@@ -25,28 +26,42 @@ export default {
     appHeader: Header,
     appUser: User
   },
-  data () {
+  setup () {
+    const store = useStore()
     return {
-      users: [
-        {
-          id: 1,
-          name: 'aminator',
-          description: 'Software Engineer',
-          phone: '0176 23 56 3555',
-          email: 'amin@abromand.com',
-          address: 'Vogelrohrsheide 124a',
-          ssbcount: 3
-        },
-        {
-          id: 2,
-          name: 'fame',
-          description: 'Sales Engineer',
-          phone: '0176 23 56 3555',
-          email: 'felixblanke@gmail.com',
-          address: 'Muenchen',
-          ssbcount: 7
-        }
-      ]
+      store: store
+    }
+  },
+  created () {
+    console.log('create user list')
+    this.store.dispatch('loadUsers')
+  },
+  // data () {
+  //   return {
+  //     users: [
+  //       {
+  //         id: 1,
+  //         name: 'aminator',
+  //         description: 'Software Engineer',
+  //         phone: '0176 23 56 3555',
+  //         email: 'amin@abromand.com',
+  //         address: 'Vogelrohrsheide 124a',
+  //         ssbcount: 3
+  //       },
+  //       {
+  //         id: 2,
+  //         name: 'fame',
+  //         description: 'Sales Engineer',
+  //         phone: '0176 23 56 3555',
+  //         email: 'felixblanke@gmail.com',
+  //         address: 'Muenchen',
+  //         ssbcount: 7
+  //       }
+  //     ]
+  //   }
+  computed: {
+    users () {
+      return this.store.getters.users
     }
   }
 }

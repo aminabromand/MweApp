@@ -9,7 +9,7 @@
       <div class="collapse navbar-collapse">
         <ul class="nav navbar-nav">
 
-          <li><router-link to="/logout" active-class="active">logout</router-link></li>
+          <li><a v-on:click="onLogout">logout</a></li>
 
         </ul>
       </div>
@@ -17,3 +17,38 @@
   </nav>
 
 </template>
+
+<script>
+import { useStore } from 'vuex'
+import { useRouter } from 'vue-router'
+
+export default {
+  setup () {
+    const store = useStore()
+    const router = useRouter()
+    return {
+      store: store,
+      router: router
+    }
+  },
+  methods: {
+    onLogout () {
+      this.store.dispatch('logout')
+        .then(() => {
+          if (!this.store.getters.isLoggedIn) {
+            this.router.replace('/login')
+          }
+        })
+    }
+  }
+}
+
+</script>
+
+<style scoped>
+
+a {
+  cursor: pointer;
+}
+
+</style>
