@@ -1,12 +1,12 @@
 package com.abromand.mweapp.web.security;
 
+import com.abromand.mweapp.data.model.MweUser;
 import com.abromand.mweapp.web.dto.LoginRequest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
 import java.util.Date;
 import javax.servlet.FilterChain;
 import javax.servlet.http.HttpServletRequest;
@@ -51,11 +51,7 @@ public class JwtUsernamePasswordAuthenticationFilter extends UsernamePasswordAut
     }
 
     UsernamePasswordAuthenticationToken getToken(String username, String password) {
-        return new UsernamePasswordAuthenticationToken(
-            username,
-            password,
-            new ArrayList<>()
-        );
+        return new UsernamePasswordAuthenticationToken(username, password);
     }
 
     @Override

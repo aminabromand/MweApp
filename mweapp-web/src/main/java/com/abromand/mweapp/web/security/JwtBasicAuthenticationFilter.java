@@ -1,13 +1,11 @@
 package com.abromand.mweapp.web.security;
 
-import com.abromand.mweapp.data.model.MweUser;
-import com.abromand.mweapp.data.repository.MweUserRepository;
 import io.jsonwebtoken.Jwts;
-import java.util.Optional;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
 import javax.servlet.FilterChain;
@@ -15,18 +13,17 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
 
 public class JwtBasicAuthenticationFilter extends BasicAuthenticationFilter {
 
     static final String JWT_AUTH_HEADER_PREFIX = "Bearer ";
     static final String JWT_SIGNATURE_KEY = "SecretKeyForJWTs";
 
-    private final MweUserRepository userRepository;
+    private final MweUserDetailsService userDetailsService;
 
-    public JwtBasicAuthenticationFilter(AuthenticationManager authenticationManager, MweUserRepository userRepository) {
+    public JwtBasicAuthenticationFilter(AuthenticationManager authenticationManager, MweUserDetailsService userDetailsService) {
         super(authenticationManager);
-        this.userRepository = userRepository;
+        this.userDetailsService = userDetailsService;
     }
 
     @Override
@@ -59,14 +56,8 @@ public class JwtBasicAuthenticationFilter extends BasicAuthenticationFilter {
 
         if (username == null) return null;
 
-        return new UsernamePasswordAuthenticationToken(getOrCreateMweUser(username), null, new ArrayList<>());
-    }
+        UserDetails userDetails = userDetailsService.loadUserByUsername(username);
 
-    MweUser getOrCreateMweUser(String username) {
-        Optional<MweUser> mweUserOptional = userRepository.findByUsername(username);
-        if (mweUserOptional.isPresent()) return mweUserOptional.get();
-        MweUser mweUser = new MweUser();
-        mweUser.setUsername(username);
-        return userRepository.save(mweUser);
+        return new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
     }
 }

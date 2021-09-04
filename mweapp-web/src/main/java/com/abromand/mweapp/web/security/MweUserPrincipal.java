@@ -1,11 +1,13 @@
 package com.abromand.mweapp.web.security;
 
 import com.abromand.mweapp.data.model.MweUser;
+import java.util.ArrayList;
+import java.util.List;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
-import java.util.Collections;
 
 public class MweUserPrincipal implements UserDetails {
 
@@ -17,7 +19,17 @@ public class MweUserPrincipal implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.emptyList();
+        List<GrantedAuthority> authorities = new ArrayList<>();
+
+        if(mweUser.isCsb()) {
+            authorities.add(new SimpleGrantedAuthority("ROLE_CSB"));
+        }
+
+        if(mweUser.isCto()) {
+            authorities.add(new SimpleGrantedAuthority("ROLE_CTO"));
+        }
+
+        return authorities;
     }
 
     @Override

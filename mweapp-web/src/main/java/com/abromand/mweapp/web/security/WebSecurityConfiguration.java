@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -23,8 +24,9 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
-@EnableWebSecurity
 @Configuration
+@EnableWebSecurity
+@EnableGlobalMethodSecurity(securedEnabled = true)
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     public static final String API_BASE_MAPPING = "/api";
@@ -35,22 +37,19 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     private String allowedOrigin;
 
     @Autowired
-    private MweUserRepository userRepository;
-
-    @Autowired
     private RestAuthenticationEntryPoint restAuthenticationEntryPoint;
 
     @Autowired
     private MweUserDetailsService userDetailsService;
 
-    @Override
-    public void configure(AuthenticationManagerBuilder builder) throws Exception {
-        super.configure(builder);
-        // @formatter:off
-        //builder.userDetailsService(userDetailsService);
-        // @formatter:on
-
-    }
+//    @Override
+//    public void configure(AuthenticationManagerBuilder builder) throws Exception {
+//        super.configure(builder);
+//        // @formatter:off
+//        builder.userDetailsService(userDetailsService);
+//        // @formatter:on
+//
+//    }
 
     @Override
     public void configure(WebSecurity web) throws Exception {
@@ -87,7 +86,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .exceptionHandling()
                     .authenticationEntryPoint(restAuthenticationEntryPoint) // handles unauthorized attempts to access protected URLS (except /api/login)
             .and()
-                .addFilter(new JwtBasicAuthenticationFilter(authenticationManager(), userRepository)) // a filter to validate JWTs with each request
+                .addFilter(new JwtBasicAuthenticationFilter(authenticationManager(), userDetailsService)) // a filter to validate JWTs with each request
                 .addFilter(jwtUsernamePasswordAuthenticationFilter); // a filter to process sign-in requests at /api/login
         // @formatter:on
 
