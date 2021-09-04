@@ -1,12 +1,16 @@
 package com.abromand.mweapp.web.security;
 
 import com.abromand.mweapp.data.repository.MweUserRepository;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
+import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -125,5 +129,13 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         source.registerCorsConfiguration(API_BASE_MAPPING + "/**", apiConfig);
 
         return new CorsFilter(source);
+    }
+
+    @Primary
+    @Bean
+    public ObjectMapper jacksonObjectMapper() {
+        return new Jackson2ObjectMapperBuilder()
+            .serializationInclusion(JsonInclude.Include.NON_EMPTY)
+            .serializationInclusion(JsonInclude.Include.NON_NULL).build();
     }
 }
