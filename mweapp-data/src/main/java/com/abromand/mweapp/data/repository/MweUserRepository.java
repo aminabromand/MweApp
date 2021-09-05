@@ -8,8 +8,4 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface MweUserRepository extends JpaRepository<MweUser, Long> {
 
   Optional<MweUser> findByUsername(String username);
-//
-//  MweUser save(MweUser caminoUser);
-//
-//  Collection<MweUser> findAll();
 }
