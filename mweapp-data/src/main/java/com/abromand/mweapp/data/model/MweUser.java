@@ -25,7 +25,7 @@ public class MweUser {
   private String email;
 
   @Column
-  private String job;
+  private String occupation;
 
   @Column
   private String description;
@@ -47,7 +47,7 @@ public class MweUser {
 
   public MweUser() {}
 
-  public MweUser(Long id, String username, String password, String email, boolean cto, boolean csb, String description, String phone, String address, int ssbcount, String job) {
+  public MweUser(Long id, String username, String password, String email, boolean cto, boolean csb, String description, String phone, String address, int ssbcount, String occupation) {
     this.id = id;
     this.username = username;
     this.password = password;
@@ -58,7 +58,7 @@ public class MweUser {
     this.phone = phone;
     this.address = address;
     this.ssbcount = ssbcount;
-    this.job = job;
+    this.occupation = occupation;
   }
 
   public Long getId() {
@@ -133,12 +133,12 @@ public class MweUser {
     this.address = address;
   }
 
-  public String getJob() {
-    return job;
+  public String getOccupation() {
+    return occupation;
   }
 
-  public void setJob(String job) {
-    this.job = job;
+  public void setOccupation(String occupation) {
+    this.occupation = occupation;
   }
 
   public int getSsbcount() {

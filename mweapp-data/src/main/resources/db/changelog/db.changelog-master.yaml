@@ -1,6 +1,6 @@
 databaseChangeLog:
   - changeSet:
-      id: 1630855420016-1
+      id: 1630878981914-1
       author: metaproc (generated)
       changes:
         - createSequence:
@@ -8,7 +8,7 @@ databaseChangeLog:
             sequenceName: hibernate_sequence
             startValue: 1
   - changeSet:
-      id: 1630855420016-2
+      id: 1630878981914-2
       author: metaproc (generated)
       changes:
         - createTable:
@@ -39,6 +39,9 @@ databaseChangeLog:
                   name: email
                   type: VARCHAR(255)
               - column:
+                  name: occupation
+                  type: VARCHAR(255)
+              - column:
                   name: password
                   type: VARCHAR(255)
               - column:
@@ -54,7 +57,7 @@ databaseChangeLog:
                   type: VARCHAR(255)
             tableName: mwe_user
   - changeSet:
-      id: 1630855420016-3
+      id: 1630878981914-3
       author: metaproc (generated)
       changes:
         - addUniqueConstraint:
@@ -62,7 +65,7 @@ databaseChangeLog:
             constraintName: UC_MWE_USEREMAIL_COL
             tableName: mwe_user
   - changeSet:
-      id: 1630855420016-4
+      id: 1630878981914-4
       author: metaproc (generated)
       changes:
         - addUniqueConstraint:

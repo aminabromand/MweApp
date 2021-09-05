@@ -7,7 +7,7 @@
       </div>
       <div class="col-md-7 col-sm-7">
         <h5><a href="#" class="profile-link">{{ user.username }}</a></h5>
-        <p>{{ user.job }}</p>
+        <p>{{ user.occupation }}</p>
         <p class="text-muted">{{ user.description }}</p>
       </div>
       <div class="col-md-3 col-sm-3">

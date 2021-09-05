@@ -10,7 +10,7 @@ public class MweUserDto {
   private String description;
   private String address;
   private String phone;
-  private String job;
+  private String occupation;
 
   private boolean cto;
   private boolean csb;
@@ -21,7 +21,7 @@ public class MweUserDto {
 
   }
 
-  public MweUserDto(Long id, String username, String password, String email, boolean cto, boolean csb, String description, String address, String phone, int ssbcount, String job) {
+  public MweUserDto(Long id, String username, String password, String email, boolean cto, boolean csb, String description, String address, String phone, int ssbcount, String occupation) {
     this.id = id;
     this.username = username;
     this.password = password;
@@ -32,7 +32,7 @@ public class MweUserDto {
     this.address = address;
     this.phone = phone;
     this.ssbcount = ssbcount;
-    this.job = job;
+    this.occupation = occupation;
   }
 
   public Long getId() {
@@ -115,11 +115,11 @@ public class MweUserDto {
     this.ssbcount = ssbcount;
   }
 
-  public String getJob() {
-    return job;
+  public String getOccupation() {
+    return occupation;
   }
 
-  public void setJob(String job) {
-    this.job = job;
+  public void setOccupation(String occupation) {
+    this.occupation = occupation;
   }
 }

@@ -91,6 +91,12 @@
 
     <profile>
       <id>installnode</id>
+      <activation>
+        <property>
+          <name>debug</name>
+          <value>!true</value>
+        </property>
+      </activation>
 
       <build>
         <plugins>
@@ -117,6 +123,12 @@
 
     <profile>
       <id>npminstall</id>
+      <activation>
+        <property>
+          <name>debug</name>
+          <value>!true</value>
+        </property>
+      </activation>
 
       <build>
         <plugins>
@@ -140,6 +152,12 @@
 
     <profile>
       <id>buildgui</id>
+      <activation>
+        <property>
+          <name>debug</name>
+          <value>!true</value>
+        </property>
+      </activation>
 
       <build>
         <plugins>
