@@ -1,6 +1,6 @@
 databaseChangeLog:
   - changeSet:
-      id: 1630698541581-1
+      id: 1630855420016-1
       author: metaproc (generated)
       changes:
         - createSequence:
@@ -8,7 +8,7 @@ databaseChangeLog:
             sequenceName: hibernate_sequence
             startValue: 1
   - changeSet:
-      id: 1630698541581-2
+      id: 1630855420016-2
       author: metaproc (generated)
       changes:
         - createTable:
@@ -22,11 +22,17 @@ databaseChangeLog:
                   name: id
                   type: BIGINT
               - column:
+                  name: address
+                  type: VARCHAR(255)
+              - column:
                   name: csb
                   type: BOOLEAN
               - column:
                   name: cto
                   type: BOOLEAN
+              - column:
+                  name: description
+                  type: VARCHAR(255)
               - column:
                   constraints:
                     nullable: false
@@ -36,13 +42,19 @@ databaseChangeLog:
                   name: password
                   type: VARCHAR(255)
               - column:
+                  name: phone
+                  type: VARCHAR(255)
+              - column:
+                  name: ssbcount
+                  type: INTEGER
+              - column:
                   constraints:
                     nullable: false
                   name: username
                   type: VARCHAR(255)
             tableName: mwe_user
   - changeSet:
-      id: 1630698541581-3
+      id: 1630855420016-3
       author: metaproc (generated)
       changes:
         - addUniqueConstraint:
@@ -50,7 +62,7 @@ databaseChangeLog:
             constraintName: UC_MWE_USEREMAIL_COL
             tableName: mwe_user
   - changeSet:
-      id: 1630698541581-4
+      id: 1630855420016-4
       author: metaproc (generated)
       changes:
         - addUniqueConstraint:

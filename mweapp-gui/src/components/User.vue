@@ -3,20 +3,18 @@
           <div class="nearby-user">
             <div class="row">
               <div class="col-md-2 col-sm-2">
-                <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="user"
+                <img v-bind:src="profilePicLink" alt="user"
                      class="profile-photo-lg">
               </div>
               <div class="col-md-7 col-sm-7">
-                <h5><a href="#" class="profile-link">{{ user.name }}</a></h5>
-                <p>{{ user.description }}</p>
-                <p class="text-muted">{{ user.phone }}</p>
-                <p class="text-muted">{{ user.email }}</p>
-                <p class="text-muted">{{ user.address }}</p>
+                <h5><a href="#" class="profile-link">{{ user.username }} {{ linkNumber }}</a></h5>
+                <p>{{ user.job }}</p>
+                <p class="text-muted">{{ user.description }}</p>
               </div>
               <div class="col-md-3 col-sm-3">
-                <button class="btn btn-primary pull-right">+</button>
+                <button class="btn btn-light pull-right">+</button>
                 <button class="btn btn-primary pull-right">{{ user.ssbcount }}</button>
-                <button class="btn btn-primary pull-right">-</button>
+                <button class="btn btn-light pull-right">-</button>
               </div>
             </div>
           </div>
@@ -26,7 +24,12 @@
 <script>
 export default {
   name: 'User',
-  props: ['user']
+  props: ['user'],
+  data () {
+    return {
+      profilePicLink: 'https://bootdey.com/img/Content/avatar/avatar' + (this.user.id % 8 + 1) + '.png'
+    }
+  }
 }
 </script>
 

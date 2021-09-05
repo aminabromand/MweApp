@@ -8,6 +8,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
+import java.util.stream.Collectors;
 import javax.servlet.FilterChain;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,6 +20,7 @@ import org.springframework.security.authentication.AuthenticationServiceExceptio
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
@@ -55,13 +57,25 @@ public class JwtUsernamePasswordAuthenticationFilter extends UsernamePasswordAut
     }
 
     @Override
-    public void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication auth) {
+    public void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication auth)
+        throws IOException {
         String token = Jwts.builder()
             .setSubject(((UserDetails) auth.getPrincipal()).getUsername())
             .setExpiration(new Date(System.currentTimeMillis() + 6000000))
             .signWith(SignatureAlgorithm.HS512, JwtBasicAuthenticationFilter.JWT_SIGNATURE_KEY)
             .compact();
         response.addHeader(HttpHeaders.AUTHORIZATION, JwtBasicAuthenticationFilter.JWT_AUTH_HEADER_PREFIX + token);
+        response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+        response.setCharacterEncoding(StandardCharsets.UTF_8.toString());
+        response.getWriter().write("{");
+        response.getWriter().write("\"username\": \"" + ((UserDetails) auth.getPrincipal()).getUsername() + "\",");
+        response.getWriter().write("\"roles\": [\"");
+        String authList = ((UserDetails) auth.getPrincipal()).getAuthorities().stream()
+            .map(GrantedAuthority::getAuthority)
+            .collect(Collectors.joining("\",\""));
+        response.getWriter().write(authList);
+        response.getWriter().write("\"]");
+        response.getWriter().write("}");
     }
 
     @Override

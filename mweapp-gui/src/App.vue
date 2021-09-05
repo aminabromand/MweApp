@@ -1,19 +1,11 @@
 <template>
-  <div>
-    <div class="container">
-
-      <app-body></app-body>
-
       <transition name="slide" mode="out-in">
         <router-view></router-view>
       </transition>
 
-    </div>
-  </div>
 </template>
 
 <script>
-import BlankPage from '@/components/BlankPage'
 import { useRouter } from 'vue-router'
 
 export default {
@@ -24,16 +16,13 @@ export default {
       router: router
     }
   },
-  components: {
-    appBody: BlankPage
-  },
   created () {
     this.router.replace('/login')
   }
 }
 </script>
 
-<style>
+<style scoped>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
