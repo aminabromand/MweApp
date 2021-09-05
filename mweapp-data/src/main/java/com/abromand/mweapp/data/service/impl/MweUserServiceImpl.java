@@ -42,6 +42,8 @@ public class MweUserServiceImpl implements MweUserService {
   public void patch(Long id, MweUserDto dto)
       throws InvocationTargetException, IllegalAccessException {
     MweUser mweUser = userRepository.getById(id);
+    dto.setCsb(mweUser.isCsb());
+    dto.setCto(mweUser.isCto());
     nullAwareBeanUtilsBean.copyProperties(mweUser, dto);
     userRepository.save(mweUser);
   }

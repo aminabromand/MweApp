@@ -5,12 +5,16 @@ import { $axios } from './axios'
 export const store = createStore({
   state: {
     loggedIn: false,
+    loggedInUser: {},
     count: 0,
     users: []
   },
   getters: {
     isLoggedIn (state) {
       return state.loggedIn
+    },
+    loggedInUser (state) {
+      return state.loggedInUser
     },
     users (state) {
       return state.users
@@ -22,6 +26,9 @@ export const store = createStore({
     },
     'SET_USERS' (state, users) {
       state.users = users
+    },
+    'SET_LOGGEDIN_USER' (state, user) {
+      state.loggedInUser = user
     }
   },
   actions: {
@@ -40,6 +47,7 @@ export const store = createStore({
           res => {
             console.log(res.headers.authorization)
             this.state.loggedIn = true
+            commit('SET_LOGGEDIN_USER', res.data)
             $axios.defaults.headers.common.authorization = res.headers.authorization
           }
         )
@@ -48,6 +56,7 @@ export const store = createStore({
     logout () {
       delete $axios.defaults.headers.common.authorization
       this.state.loggedIn = false
+      this.state.loggedInUser = {}
     },
     loadUsers ({ commit }) {
       $axios.get('/api/user')
@@ -56,6 +65,13 @@ export const store = createStore({
             commit('SET_USERS', res.data)
           }
         )
+    },
+    setSsbCount ({ commit }, payload) {
+      const response = $axios.patch(
+        '/api/user/' + payload.userid,
+        { ssbcount: payload.ssbcount }
+      )
+      return response && response.status === 200
     }
   }
 })

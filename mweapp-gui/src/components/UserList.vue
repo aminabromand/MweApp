@@ -34,6 +34,7 @@ export default {
   },
   created () {
     console.log('create user list')
+    console.log(this.store.getters.loggedInUser.username)
     this.store.dispatch('loadUsers')
   },
   // data () {
