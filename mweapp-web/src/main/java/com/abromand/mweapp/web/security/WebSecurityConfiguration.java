@@ -36,6 +36,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Value("${mweapp.security.cors.allowed-origin:http://localhost:8081}")
     private String allowedOrigin;
 
+    private String allowedOrigin2 = "https://afternoon-mesa-12438.herokuapp.com/";
+
     @Autowired
     private RestAuthenticationEntryPoint restAuthenticationEntryPoint;
 
@@ -115,6 +117,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         var loginConfig = new CorsConfiguration();
         loginConfig.setAllowCredentials(true);
         loginConfig.addAllowedOrigin(allowedOrigin);
+        loginConfig.addAllowedOrigin(allowedOrigin2);
         loginConfig.addAllowedHeader("*");
         loginConfig.addAllowedMethod("POST");
         loginConfig.addExposedHeader("Authorization");
@@ -123,6 +126,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         var apiConfig = new CorsConfiguration();
         apiConfig.setAllowCredentials(true);
         apiConfig.addAllowedOrigin(allowedOrigin);
+        apiConfig.addAllowedOrigin(allowedOrigin2);
         apiConfig.addAllowedHeader("*");
         apiConfig.addAllowedMethod("*");
         source.registerCorsConfiguration(API_BASE_MAPPING + "/**", apiConfig);
