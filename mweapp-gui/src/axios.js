@@ -6,5 +6,6 @@ import axios from 'axios'
 // axios.defaults.headers.common["Content-Type"] = "application/json";
 
 export const $axios = axios.create({
-  baseURL: 'http://localhost:8080'
+  // baseURL: 'http://localhost:8080'
+  baseURL: 'https://afternoon-mesa-12438.herokuapp.com'
 })
