@@ -8,7 +8,6 @@
       <!-- Icon -->
       <div class="fadeIn first">
         <img alt="Vue logo" src="../assets/mwe.png" width="50">
-        {{ count }}
       </div>
 
       <!-- Login Form -->

@@ -8,10 +8,7 @@ import com.abromand.mweapp.data.service.MweUserService;
 import com.abromand.mweapp.data.util.NullAwareBeanUtilsBean;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
-import org.apache.maven.wagon.ResourceDoesNotExistException;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -39,13 +36,13 @@ public class MweUserServiceImpl implements MweUserService {
 
   @Transactional
   @Override
-  public void patch(Long id, MweUserDto dto)
+  public MweUserDto patch(Long id, MweUserDto dto)
       throws InvocationTargetException, IllegalAccessException {
     MweUser mweUser = userRepository.getById(id);
     dto.setCsb(mweUser.isCsb());
     dto.setCto(mweUser.isCto());
     nullAwareBeanUtilsBean.copyProperties(mweUser, dto);
-    userRepository.save(mweUser);
+    return userMapper.mweUser2MweUserDto(userRepository.save(mweUser));
   }
 
 

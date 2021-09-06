@@ -11,5 +11,5 @@ public interface MweUserService {
 
   List<MweUserDto> findAll();
 
-  void patch(Long id, MweUserDto dto) throws InvocationTargetException, IllegalAccessException;
+  MweUserDto patch(Long id, MweUserDto dto) throws InvocationTargetException, IllegalAccessException;
 }

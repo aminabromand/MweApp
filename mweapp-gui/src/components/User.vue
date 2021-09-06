@@ -13,7 +13,7 @@
       <div class="col-md-3 col-sm-3">
         <button v-if="isCsb" class="btn btn-light pull-right" @click="setSsbCount(user.id, user.ssbcount+1)">+</button>
         <button class="btn btn-primary pull-right">{{ user.ssbcount }}</button>
-        <button v-if="isCsb" class="btn btn-light pull-right" @click="setSsbCount(user.id, user.ssbcount+1)">-</button>
+        <button v-if="isCsb" class="btn btn-light pull-right" @click="setSsbCount(user.id, user.ssbcount-1)">-</button>
       </div>
     </div>
   </div>
@@ -51,11 +51,6 @@ export default {
         userid: userid,
         ssbcount: ssbcount
       })
-      if (responseOk) {
-        new Promise(resolve => setTimeout(resolve, 100)).then(
-          this.store.dispatch('loadUsers')
-        )
-      }
       console.log(responseOk)
     }
   }

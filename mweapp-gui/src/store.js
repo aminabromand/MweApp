@@ -36,7 +36,6 @@ export const store = createStore({
       $axios.post('/api/login', { username: 'aminator', password: 'abcdef9h' })
         .then(res => console.log(res))
         .catch(error => console.log(error))
-
       context.commit('increment')
     },
     login ({ commit, dispatch }, authData) {
@@ -58,20 +57,18 @@ export const store = createStore({
       this.state.loggedIn = false
       this.state.loggedInUser = {}
     },
-    loadUsers ({ commit }) {
-      $axios.get('/api/user')
-        .then(
-          res => {
-            commit('SET_USERS', res.data)
-          }
-        )
-    },
-    setSsbCount ({ commit }, payload) {
+    setSsbCount ({ commit, dispatch }, payload) {
       const response = $axios.patch(
         '/api/user/' + payload.userid,
         { ssbcount: payload.ssbcount }
-      )
+      ).then(dispatch('loadUsers'))
       return response && response.status === 200
+    },
+    loadUsers ({ commit }) {
+      $axios.get('/api/user')
+        .then(res => {
+          commit('SET_USERS', res.data)
+        })
     }
   }
 })
