@@ -93,7 +93,7 @@
       <id>installnode</id>
       <activation>
         <property>
-          <name>debug</name>
+          <name>env.DEBUG</name>
           <value>!true</value>
         </property>
       </activation>
@@ -125,7 +125,7 @@
       <id>npminstall</id>
       <activation>
         <property>
-          <name>debug</name>
+          <name>env.DEBUG</name>
           <value>!true</value>
         </property>
       </activation>
@@ -154,7 +154,7 @@
       <id>buildgui</id>
       <activation>
         <property>
-          <name>debug</name>
+          <name>env.DEBUG</name>
           <value>!true</value>
         </property>
       </activation>
