@@ -61,7 +61,10 @@ export const store = createStore({
       const response = $axios.patch(
         '/api/user/' + payload.userid,
         { ssbcount: payload.ssbcount }
-      ).then(dispatch('loadUsers'))
+      ).then(res => {
+        console.log(res.data)
+        dispatch('loadUsers')
+      })
       return response && response.status === 200
     },
     loadUsers ({ commit }) {
