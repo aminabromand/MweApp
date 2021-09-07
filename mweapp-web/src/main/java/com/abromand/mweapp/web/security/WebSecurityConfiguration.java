@@ -38,6 +38,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     private String allowedOrigin2 = "https://afternoon-mesa-12438.herokuapp.com/";
 
+    private String allowedOriginAll = "*";
+
     @Autowired
     private RestAuthenticationEntryPoint restAuthenticationEntryPoint;
 
@@ -116,8 +118,9 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
         var loginConfig = new CorsConfiguration();
         loginConfig.setAllowCredentials(true);
-        loginConfig.addAllowedOrigin(allowedOrigin);
-        loginConfig.addAllowedOrigin(allowedOrigin2);
+        loginConfig.addAllowedOrigin(allowedOriginAll);
+//        loginConfig.addAllowedOrigin(allowedOrigin);
+//        loginConfig.addAllowedOrigin(allowedOrigin2);
         loginConfig.addAllowedHeader("*");
         loginConfig.addAllowedMethod("POST");
         loginConfig.addExposedHeader("Authorization");
@@ -125,8 +128,9 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
         var apiConfig = new CorsConfiguration();
         apiConfig.setAllowCredentials(true);
-        apiConfig.addAllowedOrigin(allowedOrigin);
-        apiConfig.addAllowedOrigin(allowedOrigin2);
+        loginConfig.addAllowedOrigin(allowedOriginAll);
+//        apiConfig.addAllowedOrigin(allowedOrigin);
+//        apiConfig.addAllowedOrigin(allowedOrigin2);
         apiConfig.addAllowedHeader("*");
         apiConfig.addAllowedMethod("*");
         source.registerCorsConfiguration(API_BASE_MAPPING + "/**", apiConfig);
