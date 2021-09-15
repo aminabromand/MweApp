@@ -1,6 +1,7 @@
 package com.abromand.mweapp.data.service.impl;
 
 import com.abromand.mweapp.data.dto.MweUserDto;
+import com.abromand.mweapp.data.exception.MweServiceException;
 import com.abromand.mweapp.data.mapper.MweUserMapper;
 import com.abromand.mweapp.data.model.MweUser;
 import com.abromand.mweapp.data.repository.MweUserRepository;
@@ -73,7 +74,7 @@ public class MweUserServiceImpl implements MweUserService {
       String msg = "Your new password is: " + sha3Hex;
       Optional<MweUser> mweUserOptional = userRepository.findByEmail(email);
       if (mweUserOptional.isEmpty()) {
-        throw new RuntimeException("user not found");
+        throw new MweServiceException("user not found");
       }
       String init102encrypted = "$2a$10$d2cabNZUoC43e.OJ4TDx/.Z6TQ.8U.5nzvV5js1n1m37JhnDAr/By";
       mweUserOptional.get().setPassword(init102encrypted);
@@ -129,7 +130,7 @@ public class MweUserServiceImpl implements MweUserService {
 
     } catch (Exception e) {
       e.printStackTrace();
-      throw new RuntimeException("some weird error");
+      throw new MweServiceException("some weird error");
     }
   }
 
