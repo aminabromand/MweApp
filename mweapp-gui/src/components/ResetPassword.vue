@@ -12,14 +12,13 @@
 
       <!-- Login Form -->
       <form @submit.prevent="onSubmit">
-        <input type="text" id="username" class="fadeIn second" name="login" placeholder="username" v-model="username">
-        <input type="password" id="password" class="fadeIn third" name="login" placeholder="password" v-model="password">
-        <input type="submit" class="fadeIn fourth" value="Log In">
+        <input type="text" id="email" class="fadeIn second" name="login" placeholder="email" v-model="email">
+        <input type="submit" class="fadeIn fourth" value="Reset Password">
       </form>
 
       <!-- Remind Passowrd -->
       <div id="formFooter">
-        <router-link to="/resetpassword" class="underlineHover">Forgot Password?</router-link>
+        <router-link to="/login" class="underlineHover">Back to Login</router-link>
       </div>
 
     </div>
@@ -46,17 +45,15 @@ export default {
   },
   data () {
     return {
-      username: '',
-      password: ''
+      email: ''
     }
   },
   methods: {
     onSubmit () {
-      console.log({ username: this.username, password: this.password })
-      this.store.dispatch('login', { username: this.username, password: this.password })
+      this.store.dispatch('resetpassword', { email: this.email })
         .then(() => {
-          if (this.store.getters.isLoggedIn) {
-            this.router.replace('/')
+          if (!this.store.getters.isLoggedIn) {
+            this.router.replace('/login')
           }
         })
     }

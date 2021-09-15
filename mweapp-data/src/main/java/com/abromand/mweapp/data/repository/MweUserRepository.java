@@ -8,4 +8,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface MweUserRepository extends JpaRepository<MweUser, Long> {
 
   Optional<MweUser> findByUsername(String username);
+
+  Optional<MweUser> findByEmail(String email);
 }

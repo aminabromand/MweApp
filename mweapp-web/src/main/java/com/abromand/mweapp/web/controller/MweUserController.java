@@ -13,6 +13,7 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -57,6 +58,11 @@ public class MweUserController {
     System.out.println("patch");
     System.out.println(patch.get("ssbcount"));
     return userService.patch(id, dto);
+  }
+
+  @PostMapping("/resetpassword")
+  public void resetPassword(@RequestBody Map<String, String> data) {
+    userService.resetPassword(data.get("email"));
   }
 
 }

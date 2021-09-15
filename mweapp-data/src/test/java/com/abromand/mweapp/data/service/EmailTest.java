@@ -1,4 +1,4 @@
-package com.abromand.mweapp;
+package com.abromand.mweapp.data.service;
 
 import static org.junit.Assert.fail;
 
@@ -13,8 +13,10 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
+@Disabled
 public class EmailTest {
 
   @Test
@@ -53,7 +55,7 @@ public class EmailTest {
       Message message = new MimeMessage(session);
       message.setFrom(new InternetAddress(username));
       message.setRecipients(Message.RecipientType.TO, InternetAddress.parse("amin.abromand@metaproc.com"));
-      message.setSubject("Mail Subject: MWE APP 4");
+      message.setSubject("Mail Subject: MWE APP 5");
 
       String msg = "This is my first email using JavaMailer";
 

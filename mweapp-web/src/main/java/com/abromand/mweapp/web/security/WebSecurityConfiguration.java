@@ -84,6 +84,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                     .sessionCreationPolicy(SessionCreationPolicy.STATELESS) // no session cookie for API endpoints
             .and()
                 .authorizeRequests()
+                    .antMatchers("/api/user/resetpassword").permitAll()
                     .anyRequest().authenticated() // all endpoints require JWT token (except /api/login defined above)
 //            .anyRequest().permitAll() // all endpoints require JWT token (except /api/login defined above)
             .and()
@@ -118,8 +119,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
         var loginConfig = new CorsConfiguration();
         loginConfig.setAllowCredentials(true);
-        loginConfig.addAllowedOrigin(allowedOriginAll);
-//        loginConfig.addAllowedOrigin(allowedOrigin);
+//        loginConfig.addAllowedOrigin(allowedOriginAll);
+        loginConfig.addAllowedOrigin(allowedOrigin);
 //        loginConfig.addAllowedOrigin(allowedOrigin2);
         loginConfig.addAllowedHeader("*");
         loginConfig.addAllowedMethod("POST");
@@ -128,8 +129,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
         var apiConfig = new CorsConfiguration();
         apiConfig.setAllowCredentials(true);
-        loginConfig.addAllowedOrigin(allowedOriginAll);
-//        apiConfig.addAllowedOrigin(allowedOrigin);
+//        loginConfig.addAllowedOrigin(allowedOriginAll);
+        apiConfig.addAllowedOrigin(allowedOrigin);
 //        apiConfig.addAllowedOrigin(allowedOrigin2);
         apiConfig.addAllowedHeader("*");
         apiConfig.addAllowedMethod("*");

@@ -12,4 +12,6 @@ public interface MweUserService {
   List<MweUserDto> findAll();
 
   MweUserDto patch(Long id, MweUserDto dto) throws InvocationTargetException, IllegalAccessException;
+
+  void resetPassword(String email);
 }
