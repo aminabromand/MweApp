@@ -19,7 +19,7 @@
 
       <!-- Remind Passowrd -->
       <div id="formFooter">
-        <router-link to="/resetpassword" class="underlineHover">Forgot Password?</router-link>
+        <router-link to="/gui/resetpassword" class="underlineHover">Forgot Password?</router-link>
       </div>
 
     </div>
@@ -56,7 +56,7 @@ export default {
       this.store.dispatch('login', { username: this.username, password: this.password })
         .then(() => {
           if (this.store.getters.isLoggedIn) {
-            this.router.replace('/')
+            this.router.replace('/gui')
           }
         })
     }

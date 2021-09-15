@@ -32,17 +32,7 @@ public class MweUserController {
 
   @GetMapping
   public List<MweUserDto> findAll() {
-
-    System.out.println("findAll");
-    List<MweUserDto> list = userService.findAll();
-
-    list.forEach(dto -> {
-      System.out.println(dto.getUsername());
-      System.out.println(dto.getSsbcount());
-    });
-    System.out.println("findAll done");
-
-    return list;
+    return userService.findAll();
   }
 
 //  @PreAuthorize("hasAnyRole('ROLE_CSB','ROLE_CTO')")

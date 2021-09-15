@@ -17,7 +17,7 @@ export default {
     }
   },
   created () {
-    this.router.replace('/login')
+    this.router.replace('/gui/login')
   }
 }
 </script>

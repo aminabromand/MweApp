@@ -3,7 +3,7 @@
   <nav class="navbar navbar-default">
     <div class="container-fluid">
       <div class="navbar-header">
-        <router-link to="/" class="navbar-brand">MWE Web App</router-link>
+        <router-link to="/gui" class="navbar-brand">MWE Web App</router-link>
       </div>
 
       <div class="collapse navbar-collapse">
@@ -36,7 +36,7 @@ export default {
       this.store.dispatch('logout')
         .then(() => {
           if (!this.store.getters.isLoggedIn) {
-            this.router.replace('/login')
+            this.router.replace('/gui/login')
           }
         })
     }
