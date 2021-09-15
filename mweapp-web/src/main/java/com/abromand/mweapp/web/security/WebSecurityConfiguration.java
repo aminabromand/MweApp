@@ -1,6 +1,5 @@
 package com.abromand.mweapp.web.security;
 
-import com.abromand.mweapp.data.repository.MweUserRepository;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
@@ -11,7 +10,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -33,7 +31,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     private static final Logger LOG = LoggerFactory.getLogger(WebSecurityConfiguration.class);
 
-    @Value("${mweapp.security.cors.allowed-origin:http://localhost:8081}")
+    @Value("${mweapp.base-url.gui:http://localhost:8081}")
     private String allowedOrigin;
 
     private String allowedOrigin2 = "https://afternoon-mesa-12438.herokuapp.com/";

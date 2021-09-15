@@ -1,6 +1,7 @@
 package com.abromand.mweapp.data.service;
 
 import com.abromand.mweapp.data.dto.MweUserDto;
+import com.abromand.mweapp.data.dto.VerificationTokenDto;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.Map;
@@ -13,5 +14,7 @@ public interface MweUserService {
 
   MweUserDto patch(Long id, MweUserDto dto) throws InvocationTargetException, IllegalAccessException;
 
-  void resetPassword(String email);
+  VerificationTokenDto generateVerificationToken(String email);
+
+  void sendVerificationEmail(VerificationTokenDto tokenDto);
 }

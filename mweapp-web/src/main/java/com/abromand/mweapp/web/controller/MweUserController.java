@@ -3,12 +3,15 @@ package com.abromand.mweapp.web.controller;
 import static com.abromand.mweapp.web.security.WebSecurityConfiguration.API_BASE_MAPPING;
 
 import com.abromand.mweapp.data.dto.MweUserDto;
+import com.abromand.mweapp.data.dto.VerificationTokenDto;
 import com.abromand.mweapp.data.service.MweUserService;
+import com.abromand.mweapp.web.event.OnGeneratedVerificationTokenEvent;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -23,6 +26,10 @@ import org.springframework.web.bind.annotation.RestController;
 public class MweUserController {
 
   public static final String USER_MAPPING = "/user";
+
+
+  @Autowired
+  ApplicationEventPublisher eventPublisher;
 
   @Autowired
   MweUserService userService;
@@ -50,9 +57,13 @@ public class MweUserController {
     return userService.patch(id, dto);
   }
 
-  @PostMapping("/resetpassword")
-  public void resetPassword(@RequestBody Map<String, String> data) {
-    userService.resetPassword(data.get("email"));
+  @PostMapping("/requestpasswordreset")
+  public void requestPasswordReset(@RequestBody Map<String, String> data) {
+
+    VerificationTokenDto tokenDto = userService.generateVerificationToken(data.get("email"));
+
+    eventPublisher.publishEvent(new OnGeneratedVerificationTokenEvent(tokenDto));
+
   }
 
 }
