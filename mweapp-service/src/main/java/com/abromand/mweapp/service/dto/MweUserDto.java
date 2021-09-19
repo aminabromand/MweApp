@@ -1,64 +1,36 @@
-package com.abromand.mweapp.data.model;
+package com.abromand.mweapp.service.dto;
 
-import javax.annotation.Generated;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+public class MweUserDto {
 
-//@Generated(value = "org.hibernate.jpamodelgen.JPAMetaModelEntityProcessor")
-@Entity
-@Table(name = "mwe_user")
-public class MweUser {
-
-  @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
   private Long id;
 
-  @Column(nullable = false, unique = true)
   private String username;
-
-  @Column
   private String password;
-
-  @Column(nullable = false, unique = true)
   private String email;
-
-  @Column
+  private String description;
+  private String address;
+  private String phone;
   private String occupation;
 
-  @Column
-  private String description;
-
-  @Column
-  private String phone;
-
-  @Column
-  private String address;
-
-  @Column
   private boolean cto;
-
-  @Column
   private boolean csb;
 
-  @Column
   private int ssbcount;
 
-  public MweUser() {}
+  public MweUserDto() {
 
-  public MweUser(Long id, String username, String password, String email, boolean cto, boolean csb, String description, String phone, String address, int ssbcount, String occupation) {
+  }
+
+  public MweUserDto(Long id, String username, String password, String email, boolean cto, boolean csb, String description, String address, String phone, int ssbcount, String occupation) {
     this.id = id;
     this.username = username;
     this.password = password;
-    this.csb = csb;
-    this.cto = cto;
     this.email = email;
+    this.cto = cto;
+    this.csb = csb;
     this.description = description;
-    this.phone = phone;
     this.address = address;
+    this.phone = phone;
     this.ssbcount = ssbcount;
     this.occupation = occupation;
   }
@@ -119,14 +91,6 @@ public class MweUser {
     this.description = description;
   }
 
-  public String getPhone() {
-    return phone;
-  }
-
-  public void setPhone(String phone) {
-    this.phone = phone;
-  }
-
   public String getAddress() {
     return address;
   }
@@ -135,12 +99,12 @@ public class MweUser {
     this.address = address;
   }
 
-  public String getOccupation() {
-    return occupation;
+  public String getPhone() {
+    return phone;
   }
 
-  public void setOccupation(String occupation) {
-    this.occupation = occupation;
+  public void setPhone(String phone) {
+    this.phone = phone;
   }
 
   public int getSsbcount() {
@@ -149,5 +113,13 @@ public class MweUser {
 
   public void setSsbcount(int ssbcount) {
     this.ssbcount = ssbcount;
+  }
+
+  public String getOccupation() {
+    return occupation;
+  }
+
+  public void setOccupation(String occupation) {
+    this.occupation = occupation;
   }
 }

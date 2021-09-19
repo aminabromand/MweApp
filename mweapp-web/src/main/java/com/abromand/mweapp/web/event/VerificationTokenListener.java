@@ -1,6 +1,6 @@
 package com.abromand.mweapp.web.event;
 
-import com.abromand.mweapp.data.service.MweUserService;
+import com.abromand.mweapp.service.service.MweUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;

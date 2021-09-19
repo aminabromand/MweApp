@@ -1,6 +1,6 @@
 package com.abromand.mweapp.web.controller;
 
-import com.abromand.mweapp.data.exception.MweServiceException;
+import com.abromand.mweapp.service.exception.MweServiceException;
 import java.util.HashMap;
 import java.util.Map;
 import org.springframework.http.HttpStatus;

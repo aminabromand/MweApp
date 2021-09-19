@@ -10,6 +10,7 @@
     <module>mweapp-data</module>
     <module>mweapp-web</module>
     <module>mweapp-gui</module>
+    <module>mweapp-service</module>
   </modules>
 
   <parent>
@@ -44,9 +45,16 @@
   <dependencyManagement>
     <dependencies>
       <dependency>
+        <groupId>org.hibernate</groupId>
+        <artifactId>hibernate-jpamodelgen</artifactId>
+        <version>${org.hibernate.jpamodelgen.version}</version>
+        <scope>provided</scope>
+      </dependency>
+      <dependency>
         <groupId>org.mapstruct</groupId>
         <artifactId>mapstruct</artifactId>
         <version>${org.mapstruct.version}</version>
+        <scope>provided</scope>
       </dependency>
     </dependencies>
   </dependencyManagement>
@@ -54,6 +62,36 @@
   <build>
     <pluginManagement>
       <plugins>
+
+<!--        <plugin>-->
+<!--          <groupId>org.bsc.maven</groupId>-->
+<!--          <artifactId>maven-processor-plugin</artifactId>-->
+<!--          <version>2.1.0</version>-->
+<!--          <executions>-->
+<!--            <execution>-->
+<!--              <id>process</id>-->
+<!--              <goals>-->
+<!--                <goal>process</goal>-->
+<!--              </goals>-->
+<!--              <phase>generate-sources</phase>-->
+<!--              <configuration>-->
+<!--                <processors>-->
+<!--                  <processor>org.hibernate.jpamodelgen.JPAMetaModelEntityProcessor</processor>-->
+<!--                </processors>-->
+<!--              </configuration>-->
+<!--            </execution>-->
+<!--          </executions>-->
+<!--          <dependencies>-->
+<!--            <dependency>-->
+<!--              <groupId>org.hibernate</groupId>-->
+<!--              <artifactId>hibernate-jpamodelgen</artifactId>-->
+<!--              <version>${org.hibernate.jpamodelgen.version}</version>-->
+<!--            </dependency>-->
+<!--          </dependencies>-->
+<!--        </plugin>-->
+
+
+
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-compiler-plugin</artifactId>
@@ -69,11 +107,11 @@
             <!--                                                                                         -->
             <!-- According to this documentation, the provided dependency processor is not considered!   -->
             <annotationProcessorPaths>
-              <!--            <path>-->
-              <!--              <groupId>org.hibernate</groupId>-->
-              <!--              <artifactId>hibernate-jpamodelgen</artifactId>-->
-              <!--              <version>${org.hibernate.jpamodelgen.version}</version>-->
-              <!--            </path>-->
+              <path>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate-jpamodelgen</artifactId>
+                <version>${org.hibernate.jpamodelgen.version}</version>
+              </path>
               <!--            <path>-->
               <!--              <groupId>org.projectlombok</groupId>-->
               <!--              <artifactId>lombok</artifactId>-->
@@ -96,6 +134,8 @@
               <!--            </path>-->
             </annotationProcessorPaths>
           </configuration>
+
+
         </plugin>
       </plugins>
     </pluginManagement>

@@ -2,9 +2,9 @@ package com.abromand.mweapp.web.controller;
 
 import static com.abromand.mweapp.web.security.WebSecurityConfiguration.API_BASE_MAPPING;
 
-import com.abromand.mweapp.data.dto.MweUserDto;
-import com.abromand.mweapp.data.dto.VerificationTokenDto;
-import com.abromand.mweapp.data.service.MweUserService;
+import com.abromand.mweapp.service.dto.MweUserDto;
+import com.abromand.mweapp.service.dto.VerificationTokenDto;
+import com.abromand.mweapp.service.service.MweUserService;
 import com.abromand.mweapp.web.event.OnGeneratedVerificationTokenEvent;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.lang.reflect.InvocationTargetException;

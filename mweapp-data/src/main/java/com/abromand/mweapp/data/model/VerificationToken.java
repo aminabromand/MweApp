@@ -3,6 +3,8 @@ package com.abromand.mweapp.data.model;
 import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.Date;
+import javax.annotation.Generated;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -11,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
+//@Generated(value = "org.hibernate.jpamodelgen.JPAMetaModelEntityProcessor")
 @Entity
 public class VerificationToken {
   private static final int EXPIRATION = 60 * 24;
@@ -19,12 +22,14 @@ public class VerificationToken {
   @GeneratedValue(strategy = GenerationType.AUTO)
   private Long id;
 
-  private String token;
+  @Column
+  private String tokenString;
 
   @OneToOne(targetEntity = MweUser.class, fetch = FetchType.EAGER)
   @JoinColumn(nullable = false, name = "user_id")
   private MweUser user;
 
+  @Column
   private Date expiryDate;
 
   private Date calculateExpiryDate(int expiryTimeInMinutes) {
@@ -34,12 +39,23 @@ public class VerificationToken {
     return new Date(cal.getTime().getTime());
   }
 
+  public Date getStandardExpiryDate() {
+    return calculateExpiryDate(EXPIRATION);
+  }
+
+  public boolean isExpired() {
+    Calendar cal = Calendar.getInstance();
+    cal.setTime(new Timestamp(cal.getTime().getTime()));
+    Date currentDate = new Date(cal.getTime().getTime());
+    return currentDate.before(expiryDate);
+  }
+
   public VerificationToken() {
   }
 
-  public VerificationToken(Long id, String token, MweUser user, Date expiryDate) {
+  public VerificationToken(Long id, String tokenString, MweUser user, Date expiryDate) {
     this.id = id;
-    this.token = token;
+    this.tokenString = tokenString;
     this.user = user;
     this.expiryDate = expiryDate;
   }
@@ -56,12 +72,12 @@ public class VerificationToken {
     this.id = id;
   }
 
-  public String getToken() {
-    return token;
+  public String getTokenString() {
+    return tokenString;
   }
 
-  public void setToken(String token) {
-    this.token = token;
+  public void setTokenString(String token) {
+    this.tokenString = token;
   }
 
   public MweUser getUser() {
