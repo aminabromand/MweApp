@@ -83,7 +83,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                     .sessionCreationPolicy(SessionCreationPolicy.STATELESS) // no session cookie for API endpoints
             .and()
                 .authorizeRequests()
-                    .antMatchers("/api/user/resetpassword").permitAll()
+                    .antMatchers("/api/user/requestpasswordreset").permitAll()
                     .anyRequest().authenticated() // all endpoints require JWT token (except /api/login defined above)
 //            .anyRequest().permitAll() // all endpoints require JWT token (except /api/login defined above)
             .and()

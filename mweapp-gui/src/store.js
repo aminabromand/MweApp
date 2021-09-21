@@ -76,7 +76,7 @@ export const store = createStore({
     resetpassword ({ commit }, authData) {
       console.log(authData)
       return $axios.post(
-        '/api/user/resetpassword',
+        '/api/user/requestpasswordreset',
         { email: authData.email })
         .catch(error => console.log(error))
     }

@@ -27,7 +27,6 @@ public class MweUserController {
 
   public static final String USER_MAPPING = "/user";
 
-
   @Autowired
   ApplicationEventPublisher eventPublisher;
 
@@ -59,11 +58,8 @@ public class MweUserController {
 
   @PostMapping("/requestpasswordreset")
   public void requestPasswordReset(@RequestBody Map<String, String> data) {
-
     VerificationTokenDto tokenDto = userService.generateVerificationToken(data.get("email"));
-
     eventPublisher.publishEvent(new OnGeneratedVerificationTokenEvent(tokenDto));
-
   }
 
 }

@@ -35,9 +35,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class MweUserServiceImpl implements MweUserService {
 
-  @Value("${mweapp.base-url.gui:http://localhost:8081}")
-  private String baseUrl;
-
   @Autowired
   MweUserRepository userRepository;
 
@@ -55,11 +52,9 @@ public class MweUserServiceImpl implements MweUserService {
 
   @Override
   public List<MweUserDto> findAll() {
-
     return userRepository.findAll().stream()
         .map(userMapper::mweUser2MweUserDto)
         .collect(Collectors.toList());
-
   }
 
   @Transactional
@@ -92,29 +87,28 @@ public class MweUserServiceImpl implements MweUserService {
     VerificationToken savedToken = tokenRepository.save(token);
 
     return tokenMapper.entity2Dto(savedToken);
-
   }
 
-  private static String bytesToHex(byte[] hash) {
-    StringBuilder hexString = new StringBuilder(2 * hash.length);
-    for (byte b : hash) {
-      String hex = Integer.toHexString(0xff & b);
-      if (hex.length() == 1) {
-        hexString.append('0');
-      }
-      hexString.append(hex);
-    }
-    return hexString.toString();
-  }
+  @Value("${mweapp.email.user}")
+  private String emailUser;
+
+  @Value("${mweapp.email.password}")
+  private String emailPassword;
+
+  @Value("${mweapp.email.port}")
+  private int emailPort;
+
+  @Value("${mweapp.email.host}")
+  private String emailHost;
 
   public void sendVerificationEmail(VerificationTokenDto tokenDto) {
 
     String msg = "Your token is: " + tokenDto.getTokenString();
 
-    String host = "smtp.strato.de";
-    int port = 587;
-    String username = "mweapp@abromand.com";
-    String password = "YPyJxJ1HMQJNbiD5cxZa";
+    String host = emailHost;
+    int port = emailPort;
+    String username = emailUser;
+    String password = emailPassword;
 
     Properties prop = new Properties();
     prop.put("mail.smtp.auth", true);
