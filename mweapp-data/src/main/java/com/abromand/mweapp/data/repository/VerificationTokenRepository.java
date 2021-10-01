@@ -9,6 +9,7 @@ public interface VerificationTokenRepository extends JpaRepository<VerificationT
 
   Optional<VerificationToken> findByUserId(long userId);
 
-  List<VerificationToken> findAllByUserId(long userId);
+  Optional<VerificationToken> findByTokenString(String tokenString);
 
+  List<VerificationToken> findAllByUserId(long userId);
 }
