@@ -62,4 +62,11 @@ public class MweUserController {
     eventPublisher.publishEvent(new OnGeneratedVerificationTokenEvent(tokenDto));
   }
 
+  @PostMapping("/settokenpassword")
+  public void setTokenPassword(@RequestBody Map<String, String> data) {
+
+    VerificationTokenDto tokenDto = userService.generateVerificationToken(data.get("email"));
+
+
+  }
 }

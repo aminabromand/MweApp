@@ -150,4 +150,25 @@ public class MweUserServiceImpl implements MweUserService {
       throw new MweServiceException("email error");
     }
   }
+
+  @Override
+  public void setPasswordWithToken(String password, String token) {
+//      String init102encrypted = "$2a$10$d2cabNZUoC43e.OJ4TDx/.Z6TQ.8U.5nzvV5js1n1m37JhnDAr/By";
+
+    Optional<MweUser> mweUserOptional = userRepository.findByT.findByEmail(email);
+    if (mweUserOptional.isEmpty()) {
+      throw new MweServiceException("user not found");
+    }
+
+    tokenRepository.deleteAll(tokenRepository.findAllByUserId(mweUserOptional.get().getId()));
+
+    String tokenString = UUID.randomUUID().toString();
+    VerificationToken token = new VerificationToken();
+    token.setTokenString(tokenString);
+    token.setUser(mweUserOptional.get());
+    token.setExpiryDate(token.getStandardExpiryDate());
+    VerificationToken savedToken = tokenRepository.save(token);
+
+    return tokenMapper.entity2Dto(savedToken);
+  }
 }
