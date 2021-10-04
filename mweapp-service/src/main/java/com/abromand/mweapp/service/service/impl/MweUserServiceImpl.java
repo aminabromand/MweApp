@@ -103,7 +103,8 @@ public class MweUserServiceImpl implements MweUserService {
 
   public void sendVerificationEmail(VerificationTokenDto tokenDto) {
 
-    String msg = "Your token is: " + tokenDto.getTokenString();
+    String msg = "To set your password, go go: http://localhost:8081/#/gui/settokenpassword?token="
+        + tokenDto.getTokenString();
 
     String host = emailHost;
     int port = emailPort;
@@ -133,7 +134,7 @@ public class MweUserServiceImpl implements MweUserService {
       message.setRecipients(Message.RecipientType.TO,
           InternetAddress.parse(tokenDto.getEmail()));
 
-      message.setSubject("Mail Subject: MWE APP 5");
+      message.setSubject("MweApp Reset Password");
 
       MimeBodyPart mimeBodyPart = new MimeBodyPart();
       mimeBodyPart.setContent(msg, "text/html");
@@ -153,22 +154,15 @@ public class MweUserServiceImpl implements MweUserService {
 
   @Override
   public void setPasswordWithToken(String password, String token) {
-//      String init102encrypted = "$2a$10$d2cabNZUoC43e.OJ4TDx/.Z6TQ.8U.5nzvV5js1n1m37JhnDAr/By";
 
-    Optional<MweUser> mweUserOptional = userRepository.findByT.findByEmail(email);
-    if (mweUserOptional.isEmpty()) {
-      throw new MweServiceException("user not found");
+    Optional<VerificationToken> tokenOptional = tokenRepository.findByTokenString(token);
+    if (tokenOptional.isEmpty()) {
+      throw new MweServiceException("token not found");
     }
 
-    tokenRepository.deleteAll(tokenRepository.findAllByUserId(mweUserOptional.get().getId()));
-
-    String tokenString = UUID.randomUUID().toString();
-    VerificationToken token = new VerificationToken();
-    token.setTokenString(tokenString);
-    token.setUser(mweUserOptional.get());
-    token.setExpiryDate(token.getStandardExpiryDate());
-    VerificationToken savedToken = tokenRepository.save(token);
-
-    return tokenMapper.entity2Dto(savedToken);
+    MweUser mweUser = tokenOptional.get().getUser();
+    mweUser.setPassword(password);
+    tokenRepository.delete(tokenOptional.get());
+    userRepository.save(mweUser);
   }
 }

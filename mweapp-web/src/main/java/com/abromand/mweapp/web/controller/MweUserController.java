@@ -13,6 +13,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -35,6 +36,9 @@ public class MweUserController {
 
   @Autowired
   ObjectMapper objectMapper;
+
+  @Autowired
+  PasswordEncoder passwordEncoder;
 
   @GetMapping
   public List<MweUserDto> findAll() {
@@ -64,9 +68,7 @@ public class MweUserController {
 
   @PostMapping("/settokenpassword")
   public void setTokenPassword(@RequestBody Map<String, String> data) {
-
-    VerificationTokenDto tokenDto = userService.generateVerificationToken(data.get("email"));
-
-
+    userService.setPasswordWithToken(
+        passwordEncoder.encode(data.get("password")), data.get("token"));
   }
 }
