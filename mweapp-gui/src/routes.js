@@ -7,9 +7,9 @@ import BlankPage from '@/components/BlankPage'
 export const routes = [
   { path: '/', component: UserList },
   { path: '/gui/', component: UserList },
-  { path: '/gui/login', component: Login },
-  { path: '/gui/resetpassword', component: ResetPassword },
-  { path: '/gui/settokenpassword', component: SetTokenPassword },
-  { path: '/gui/blankpage', component: BlankPage },
-  { path: '/wrong/blankpage', component: BlankPage }
+  { name: 'Login', path: '/gui/login', component: Login, meta: { withoutAuth: true } },
+  { path: '/gui/resetpassword', component: ResetPassword, meta: { withoutAuth: true } },
+  { path: '/gui/settokenpassword', component: SetTokenPassword, meta: { withoutAuth: true } },
+  { path: '/gui/blankpage', component: BlankPage, meta: { withoutAuth: true } },
+  { path: '/wrong/blankpage', component: BlankPage, meta: { withoutAuth: true } }
 ]
