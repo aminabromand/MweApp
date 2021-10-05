@@ -13,7 +13,7 @@ public interface MweUserService {
 
   VerificationTokenDto generateVerificationToken(String email);
 
-  void sendVerificationEmail(VerificationTokenDto tokenDto);
+
 
   void setPasswordWithToken(String password, String token);
 }

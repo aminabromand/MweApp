@@ -15,39 +15,6 @@ export default {
     return {
       router: router
     }
-  },
-  created () {
-    console.log('hello')
-    console.log(this.$route)
-    console.log(this.$route.name)
-    console.log(this.$route.params.baseaccount)
-    console.log(this.router.currentRoute.value.name)
-    console.log(window.location.pathname)
-    console.log('hello2')
-    // if (this.router.currentRoute.value === '/gui/settokenpassword') return
-    // this.router.replace('/gui/login')
-  },
-  beforeMount () {
-    console.log('beforeMount')
-    console.log(this.$route)
-    console.log(this.$route.name)
-    console.log(this.$route.params.baseaccount)
-    console.log(this.router.currentRoute.value.name)
-    console.log(window.location.pathname)
-    console.log('hello2')
-    // if (this.router.currentRoute.value === '/gui/settokenpassword') return
-    // this.router.replace('/gui/login')
-  },
-  mounted () {
-    console.log('mounted')
-    console.log(this.$route)
-    console.log(this.$route.name)
-    console.log(this.$route.params.baseaccount)
-    console.log(this.router.currentRoute.value.name)
-    console.log(window.location.pathname)
-    console.log('hello2')
-    // if (this.router.currentRoute.value === '/gui/settokenpassword') return
-    // this.router.replace('/gui/login')
   }
 }
 </script>
